@@ -1,0 +1,17 @@
+
+/** 类说明：
+
+TakeawayView ： 叫外卖
+TakeawayCell ： 外卖内容cell
+
+FeatchWorkView：找兼职内容视图
+WorkCell：找兼职内容Cell
+
+TeachView：带家教内容视图
+TeachCell：家教内容视图
+
+ShopView：购物内容视图
+ShopCell：购物内容cell
+
+CoupenView:优惠券内容视图
+CoupenCell：优惠券内容Cell
