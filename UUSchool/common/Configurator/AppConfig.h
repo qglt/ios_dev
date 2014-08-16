@@ -53,7 +53,7 @@ static CGFloat topDistance = 0;
 
 //----------------------------------------------------------------------------------------------------------------------------------------
 #define TAB_ITEMS @[\
-                    [MenuItem itemWithIcon:@"" hightLightIcon:@"" title:@"技能" vcClass:@"StudyMainViewController" andTag:10000],\
+                    [MenuItem itemWithIcon:@"" hightLightIcon:@"" title:@"成长" vcClass:@"StudyMainViewController" andTag:10000],\
                     [MenuItem itemWithIcon:@"" hightLightIcon:@"" title:@"生活" vcClass:@"LifeMainViewController" andTag:10001],\
                     [MenuItem itemWithIcon:@"" hightLightIcon:@"" title:@"动态" vcClass:@"SchoolMainViewController" andTag:10002],\
                     [MenuItem itemWithIcon:@"" hightLightIcon:@"" title:@"我" vcClass:@"MineMainViewController" andTag:10003]\
@@ -61,19 +61,18 @@ static CGFloat topDistance = 0;
 
 //----------------------------------------------------------------------------------------------------------------------------------------
 #define MENU_STUDY_ITEMS @[\
-                           [MenuItem itemWithIcon:@"" hightLightIcon:@"" title:@"能量站" vcClass:@"" andTag:20000],\
-                           [MenuItem itemWithIcon:@"" hightLightIcon:@"" title:@"技能表" vcClass:@"" andTag:20001],\
-                           [MenuItem itemWithIcon:@"" hightLightIcon:@"" title:@"行程表" vcClass:@"" andTag:20002],\
-                           [MenuItem itemWithIcon:@"" hightLightIcon:@"" title:@"创造者" vcClass:@"" andTag:20003]\
+                           [MenuItem itemWithIcon:@"" hightLightIcon:@"" title:@"资源分享" vcClass:@"" andTag:20000],\
+                           [MenuItem itemWithIcon:@"" hightLightIcon:@"" title:@"课程表" vcClass:@"" andTag:20001],\
+                           [MenuItem itemWithIcon:@"" hightLightIcon:@"" title:@"日程表" vcClass:@"" andTag:20002],\
+                           [MenuItem itemWithIcon:@"" hightLightIcon:@"" title:@"开发者" vcClass:@"" andTag:20003]\
                           ]
 //----------------------------------------------------------------------------------------------------------------------------------------
 
 #define MENU_SCHOOL_ITEMS @[\
                             [MenuItem itemWithIcon:@"" hightLightIcon:@"" title:@"校友圈" vcClass:@"" andTag:20000],\
-                            [MenuItem itemWithIcon:@"" hightLightIcon:@"" title:@"新闻" vcClass:@"" andTag:20001],\
-                            [MenuItem itemWithIcon:@"" hightLightIcon:@"" title:@"二手市场" vcClass:@"" andTag:20002],\
-                            [MenuItem itemWithIcon:@"" hightLightIcon:@"" title:@"找学妹" vcClass:@"" andTag:20003],\
-                            [MenuItem itemWithIcon:@"" hightLightIcon:@"" title:@"热门活动" vcClass:@"" andTag:20004]\
+                            [MenuItem itemWithIcon:@"" hightLightIcon:@"" title:@"二手市场" vcClass:@"" andTag:20001],\
+                            [MenuItem itemWithIcon:@"" hightLightIcon:@"" title:@"找学妹" vcClass:@"" andTag:20002],\
+                            [MenuItem itemWithIcon:@"" hightLightIcon:@"" title:@"热门活动" vcClass:@"" andTag:20003]\
                            ]
 //----------------------------------------------------------------------------------------------------------------------------------------
 
@@ -81,7 +80,7 @@ static CGFloat topDistance = 0;
                             [MenuItem itemWithIcon:@"" hightLightIcon:@"" title:@"叫外卖" vcClass:@"TakeawayView" andTag:20000],\
                             [MenuItem itemWithIcon:@"" hightLightIcon:@"" title:@"找兼职" vcClass:@"FeatchWorkView" andTag:20001],\
                             [MenuItem itemWithIcon:@"" hightLightIcon:@"" title:@"带家教" vcClass:@"TeachView" andTag:20002],\
-                            [MenuItem itemWithIcon:@"" hightLightIcon:@"" title:@"UU购物" vcClass:@"ShopView" andTag:20003],\
+                            [MenuItem itemWithIcon:@"" hightLightIcon:@"" title:@"精品购物" vcClass:@"ShopView" andTag:20003],\
                             [MenuItem itemWithIcon:@"" hightLightIcon:@"" title:@"优惠券" vcClass:@"CoupenView" andTag:20004]\
                         ]
 //----------------------------------------------------------------------------------------------------------------------------------------

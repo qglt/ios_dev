@@ -17,7 +17,7 @@
 
 - (id)initWithFrame:(CGRect)frame
 {
-    self = [super initWithFrame:frame andRowHeight:274];
+    self = [super initWithFrame:frame andRowHeight:400];
     if (self) {
         // Initialization code
         [self setBase];

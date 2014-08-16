@@ -40,7 +40,7 @@
 {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.layer.borderWidth = 5;
-    self.layer.shadowOffset = CGSizeMake(5, 5);
+    self.layer.shadowOffset = CGSizeMake(3, 5);
     self.layer.borderColor = BASE_CONTENT_COLOR.CGColor;
     [self clean];
 }

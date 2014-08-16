@@ -16,6 +16,7 @@
     if (self) {
         // Initialization code
         self.backgroundColor = [UIColor purpleColor];
+        [self setCellType:BaseCellTypeImageAndTitle];
     }
     return self;
 }
