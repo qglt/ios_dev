@@ -18,7 +18,6 @@
 		0419ADEB19D14CEA00F57B58 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0419ADEA19D14CEA00F57B58 /* libsqlite3.dylib */; };
 		0419ADED19D14CF800F57B58 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0419ADEC19D14CF800F57B58 /* AdSupport.framework */; };
 		0419ADEF19D14D0B00F57B58 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0419ADEE19D14D0B00F57B58 /* CoreTelephony.framework */; };
-		0419ADF719D15D4B00F57B58 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 0419ADF619D15D4B00F57B58 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0419AE1B19D16A7A00F57B58 /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0419ADFB19D16A7A00F57B58 /* MKAnnotationView+WebCache.m */; };
 		0419AE1C19D16A7A00F57B58 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0419ADFD19D16A7A00F57B58 /* NSData+ImageContentType.m */; };
 		0419AE1D19D16A7A00F57B58 /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0419ADFF19D16A7A00F57B58 /* SDImageCache.m */; };
@@ -125,8 +124,6 @@
 		0419ADEA19D14CEA00F57B58 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		0419ADEC19D14CF800F57B58 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		0419ADEE19D14D0B00F57B58 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
-		0419ADF519D15D4B00F57B58 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
-		0419ADF619D15D4B00F57B58 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		0419ADFA19D16A7A00F57B58 /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
 		0419ADFB19D16A7A00F57B58 /* MKAnnotationView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKAnnotationView+WebCache.m"; sourceTree = "<group>"; };
 		0419ADFC19D16A7A00F57B58 /* NSData+ImageContentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ImageContentType.h"; sourceTree = "<group>"; };
@@ -332,16 +329,6 @@
 			path = Tencent_sdk;
 			sourceTree = "<group>";
 		};
-		0419ADF419D15D4B00F57B58 /* JSONKit */ = {
-			isa = PBXGroup;
-			children = (
-				0419ADF519D15D4B00F57B58 /* JSONKit.h */,
-				0419ADF619D15D4B00F57B58 /* JSONKit.m */,
-			);
-			name = JSONKit;
-			path = ../JSONKit;
-			sourceTree = "<group>";
-		};
 		0419ADF919D16A7A00F57B58 /* SDWebImage */ = {
 			isa = PBXGroup;
 			children = (
@@ -457,7 +444,6 @@
 		047A844F1991CA7F002A1486 /* common */ = {
 			isa = PBXGroup;
 			children = (
-				0419ADF419D15D4B00F57B58 /* JSONKit */,
 				0419ADF919D16A7A00F57B58 /* SDWebImage */,
 				0419ADE119D14C8100F57B58 /* Tencent_sdk */,
 				04AF1FA3199A09F600678A7D /* manager */,
@@ -931,7 +917,6 @@
 				047A84A91991CA7F002A1486 /* UIBarButtonItem+Addition.m in Sources */,
 				047F1E351994AC7D0007EE70 /* CoupenView.m in Sources */,
 				047A84B51991CA7F002A1486 /* IntroViewManager.m in Sources */,
-				0419ADF719D15D4B00F57B58 /* JSONKit.m in Sources */,
 				047F1E271994AA420007EE70 /* TeachView.m in Sources */,
 				0419AE1F19D16A7A00F57B58 /* SDWebImageDecoder.m in Sources */,
 				04AF1FAB199A09F600678A7D /* AccountManager.m in Sources */,
