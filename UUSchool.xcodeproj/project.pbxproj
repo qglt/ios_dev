@@ -34,6 +34,7 @@
 		0419AE2819D16A7A00F57B58 /* UIImageView+HighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0419AE1619D16A7A00F57B58 /* UIImageView+HighlightedWebCache.m */; };
 		0419AE2919D16A7A00F57B58 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0419AE1819D16A7A00F57B58 /* UIImageView+WebCache.m */; };
 		0419AE2A19D16A7A00F57B58 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0419AE1A19D16A7A00F57B58 /* UIView+WebCacheOperation.m */; };
+		0419AE6819D253CB00F57B58 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 0419AE6719D253CB00F57B58 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		041C8F7619A8279700CE29FE /* WorkInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 041C8F7519A8279700CE29FE /* WorkInfo.m */; };
 		041C8F7919A8488600CE29FE /* TeachInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 041C8F7819A8488600CE29FE /* TeachInfo.m */; };
 		041C8F7C19AAB68300CE29FE /* ShopInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 041C8F7B19AAB68300CE29FE /* ShopInfo.m */; };
@@ -157,6 +158,8 @@
 		0419AE1819D16A7A00F57B58 /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		0419AE1919D16A7A00F57B58 /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		0419AE1A19D16A7A00F57B58 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
+		0419AE6619D253CB00F57B58 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		0419AE6719D253CB00F57B58 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		041C8F7419A8279700CE29FE /* WorkInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkInfo.h; sourceTree = "<group>"; };
 		041C8F7519A8279700CE29FE /* WorkInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkInfo.m; sourceTree = "<group>"; };
 		041C8F7719A8488600CE29FE /* TeachInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeachInfo.h; sourceTree = "<group>"; };
@@ -369,6 +372,15 @@
 			path = SDWebImage;
 			sourceTree = "<group>";
 		};
+		0419AE6519D253CB00F57B58 /* JSONKit */ = {
+			isa = PBXGroup;
+			children = (
+				0419AE6619D253CB00F57B58 /* JSONKit.h */,
+				0419AE6719D253CB00F57B58 /* JSONKit.m */,
+			);
+			path = JSONKit;
+			sourceTree = "<group>";
+		};
 		0425FD791990586200ABFFD6 = {
 			isa = PBXGroup;
 			children = (
@@ -444,6 +456,7 @@
 		047A844F1991CA7F002A1486 /* common */ = {
 			isa = PBXGroup;
 			children = (
+				0419AE6519D253CB00F57B58 /* JSONKit */,
 				0419ADF919D16A7A00F57B58 /* SDWebImage */,
 				0419ADE119D14C8100F57B58 /* Tencent_sdk */,
 				04AF1FA3199A09F600678A7D /* manager */,
@@ -917,6 +930,7 @@
 				047A84A91991CA7F002A1486 /* UIBarButtonItem+Addition.m in Sources */,
 				047F1E351994AC7D0007EE70 /* CoupenView.m in Sources */,
 				047A84B51991CA7F002A1486 /* IntroViewManager.m in Sources */,
+				0419AE6819D253CB00F57B58 /* JSONKit.m in Sources */,
 				047F1E271994AA420007EE70 /* TeachView.m in Sources */,
 				0419AE1F19D16A7A00F57B58 /* SDWebImageDecoder.m in Sources */,
 				04AF1FAB199A09F600678A7D /* AccountManager.m in Sources */,
