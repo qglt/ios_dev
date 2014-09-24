@@ -47,7 +47,7 @@
         Class c = [self.currentContent class];
         NSString * str = NSStringFromClass(c);
         viewType = [str substringToIndex:str.length-4];
-        [self getListDataWithView:@"1"];
+        [self getListDataWithView:viewType];
 //    }
 //    first = NO;
 }
