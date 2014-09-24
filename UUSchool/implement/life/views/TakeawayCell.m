@@ -7,6 +7,14 @@
 //
 
 #import "TakeawayCell.h"
+#import "TakeawayInfo.h"
+
+@interface TakeawayCell ()
+{
+    int cellTypeNumber;
+}
+@end
+
 
 @implementation TakeawayCell
 
@@ -16,16 +24,28 @@
     if (self) {
         // Initialization code
         self.backgroundColor = [UIColor clearColor];
-        [self setCellType:BaseCellTypeOtherDetailImageAndTitle];
+        self.borderColor = BASE_CONTENT_COLOR;
     }
     return self;
 }
--(void)setUpCellWithData:(NSData *)data
+-(void)setUpCellWithData:(id)data
 {
-//    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 200, 40)];
-//    label.center = CGPointMake(self.bounds.size.width/2.0f, self.bounds.size.height/2.0f);
-//    label.text = @"这是 叫外卖 cell !";
-//    
-//    [self addSubview:label];
+    TakeawayInfo * info = data;
+    
+    if (![info.title isEqualToString:@""] && info.title != nil) {
+        cellTypeNumber += 14;
+        self.titleText.text = info.title;
+    }
+    if (![info.imageUrl isEqualToString:@""] && info.imageUrl !=nil) {
+        cellTypeNumber += 15;
+        [self.image_H sd_setImageWithURL:[NSURL URLWithString:info.imageUrl]];
+    }
+    if (![info.detail isEqualToString:@""] && info.detail !=nil) {
+        cellTypeNumber += 6;
+        self.detailText.text = info.detail;
+    }
+    cellTypeNumber += 2;
+    [self setCellType:cellTypeNumber];
 }
+
 @end

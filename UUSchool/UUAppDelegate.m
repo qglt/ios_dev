@@ -9,6 +9,9 @@
 #import "UUAppDelegate.h"
 #import "UUMainViewController.h"
 
+#import "MTA.h"
+#import "MTAConfig.h"
+
 @implementation UUAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -16,6 +19,8 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
+    [MTA startWithAppkey:@"IJ46J7ZUJ1FK"];
+    NSString *str = @"asdfasdfs";
     self.window.rootViewController = [[UUMainViewController alloc]init];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

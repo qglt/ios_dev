@@ -8,18 +8,18 @@
 
 #import "AccountManager.h"
 #import "AccountInfo.h"
-#import "MVASIHtttpRequest.h"
+#import "HTTPRequestManager.h"
 //#import "FMDBManager+UserInfo.h"
 
 static AccountListCallbackType bufferCallback = nil;
 
-@interface AccountManager()<MVASIHtttpRequestDelegate>
+@interface AccountManager()
 {
     NSArray* accountList_;
     NSString* callback_id;
     NSMutableDictionary * registDict;
 }
-@property (nonatomic,strong) MVASIHtttpRequest *mvAsiRequest;
+@property (nonatomic,strong) HTTPRequestManager *asiRequest;
 @property (nonatomic,strong) NSMutableArray * listenerArray;
 
 @end
@@ -43,8 +43,7 @@ AccountManager * _instance = nil;
     
     if(self = [super init]){
         self.currentAccount = [[AccountInfo alloc] init];
-        self.mvAsiRequest = [[MVASIHtttpRequest alloc]init];
-        self.mvAsiRequest.delegate = self;
+        self.asiRequest = [[HTTPRequestManager alloc]init];
         registDict = [NSMutableDictionary dictionary];
         self.listenerArray = [NSMutableArray array];
         _status = offLine;

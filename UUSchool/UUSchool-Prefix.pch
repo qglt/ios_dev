@@ -18,3 +18,4 @@
 #import "NSLogger.h"
 #import "AppConfig.h"
 #import "Utils.h"
+#import "AppStringConfig.h"

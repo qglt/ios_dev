@@ -7,6 +7,13 @@
 //
 
 #import "TeachCell.h"
+#import "TeachInfo.h"
+
+@interface TeachCell ()
+{
+    int cellTypeNumber;
+}
+@end
 
 @implementation TeachCell
 
@@ -16,14 +23,27 @@
     if (self) {
         // Initialization code
         self.backgroundColor = [UIColor clearColor];
-        [self setCellType:BaseCellTypeOtherDetailAndTitle];
+        self.borderColor = BASE_CONTENT_COLOR;
     }
     return self;
 }
--(void)setUpCellWithData:(NSData *)data
+-(void)setUpCellWithData:(id)data
 {
-
-
+    TeachInfo * info = data;
+    
+    if (![info.title isEqualToString:@""] && info.title != nil) {
+        cellTypeNumber += 14;
+        self.titleText.text = [NSString stringWithFormat:@"%@   %@ %@ 一小时 %@元",info.title,info.grade,info.subject,info.price];
+    }
+    if (![info.imageUrl isEqualToString:@""] && info.imageUrl !=nil) {
+        cellTypeNumber += 15;
+        [self.image_H sd_setImageWithURL:[NSURL URLWithString:info.imageUrl]];
+    }
+    if (![info.detail isEqualToString:@""] && info.detail !=nil) {
+        cellTypeNumber += 6;
+        self.detailText.text = info.detail;
+    }
+    [self setCellType:cellTypeNumber];
 }
 
 @end

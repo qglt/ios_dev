@@ -7,12 +7,18 @@
 //
 
 #import "LifeMainViewController.h"
-#import "TakeawayView.h"
+#import "BaseContentView.h"
+#import <ASIFormDataRequest.h>
+#import "JSONKit.h"
+#import "DataManager.h"
 
-@interface LifeMainViewController ()
+@interface LifeMainViewController ()<DataManagerDelegate>
 {
     BOOL first;
+    NSString * viewType;
 }
+@property (nonatomic,strong) BaseContentView * currentContent;
+@property (nonatomic,strong)ASIFormDataRequest * request;
 @end
 
 @implementation LifeMainViewController
@@ -32,38 +38,50 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self setBaseCondition];
-    [self createContentView];
 }
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if (!first) {
-        Class c = [self.view.subviews[0] class];
+//    if (!first) {
+        self.currentContent = self.view.subviews[0];
+        Class c = [self.currentContent class];
         NSString * str = NSStringFromClass(c);
-        str = [str substringToIndex:str.length-4];
-        NSLog(@"============================== %@",str);
-    }
-    first = NO;
+        viewType = [str substringToIndex:str.length-4];
+        [self getListDataWithView:@"1"];
+//    }
+//    first = NO;
 }
 - (void)setBaseCondition
 {
-    self.title = @"生活";
     self.view.backgroundColor = BASE_CONTENT_COLOR;
     first = YES;
+    [DataManager shareInstance].delegate = self;
     if (isIOS7) {
         self.extendedLayoutIncludesOpaqueBars = NO;
     }
 }
-- (void)createContentView
+- (void)getListDataWithView:(NSString *)type   // viewType  是标记当前视图是哪个视图，（Takeaway，FeatchWork，。。。）；
 {
-    TakeawayView * content = [[TakeawayView alloc]initWithFrame:self.view.bounds];
-    [self.view addSubview:content];
+    [[DataManager shareInstance] getLifeContentDataWithLifeType:type category:@"" subCategory:@"" pageCount:1];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+- (void)requestFinish:(NSArray *)requestData
+{
+    [_currentContent refreshTableDataWith:requestData];
+}
+- (void)requestFailler:(NSString *)errorMsg
+{
+    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@""
+                                                    message:errorMsg
+                                                   delegate:self
+                                          cancelButtonTitle:@"知道了"
+                                          otherButtonTitles: nil];
+    [alert show];
 }
 
 @end

@@ -12,20 +12,26 @@
 
 @property (nonatomic,strong)Class dataCell;
 
+@property (nonatomic,strong)UITableView * dataTable;
+
 @property (nonatomic,strong,setter = setlistData:)NSMutableArray * listData;
 
+@property (nonatomic,strong)NSMutableArray * rowHeights;
 /**
  * @param : @{@"key" : @[value1,value2,...],@"key" : @[value1,value2,...]}
  */
 
 @property (nonatomic,strong)NSMutableDictionary * rightMenuData;
 
-- (id)initWithFrame:(CGRect)frame andRowHeight:(CGFloat)rowHeight;
-
 - (void)showMenuButtonWithTitle:(NSString *)title;
 
 - (void)setTableHeader:(UIView *)header;
 
 - (void)refreshTableDataWith:(NSArray *)dataArray;
+
+/**
+ * @method  外界不可调用，只可以子类调用
+ */
+- (void)didSelectCellWithIndexPath:(NSIndexPath *)indexPath;
 
 @end

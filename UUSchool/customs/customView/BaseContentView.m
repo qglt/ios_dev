@@ -22,7 +22,7 @@
     BOOL rightMenuisShow;
     CGFloat scrollBeganPoint;
 }
-@property (nonatomic,strong)UITableView * dataTable;
+
 @property (nonatomic,strong)UIButton * menuButton;
 @property (nonatomic,strong)BaseMenuView * rightMenuView;
 
@@ -30,12 +30,11 @@
 
 @implementation BaseContentView
 
-- (id)initWithFrame:(CGRect)frame andRowHeight:(CGFloat)rowHeight
+- (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        _rowHeight = rowHeight;
         [self setBaseCondition];
         [self createDataTable];
     }
@@ -50,6 +49,8 @@
     menuIsShow = NO;
     rightMenuisShow = NO;
     self.rightMenuData = [NSMutableDictionary dictionary];
+    self.listData = [NSMutableArray array];
+    self.rowHeights = [NSMutableArray array];
     scrollBeganPoint = 0;
 }
 -(void)setlistData:(NSMutableArray *)listData
@@ -57,6 +58,7 @@
     _listData = listData;
     [_dataTable reloadData];
 }
+
 - (void)createDataTable
 {
     self.dataTable = [[UITableView alloc]initWithFrame:self.bounds style:UITableViewStylePlain];
@@ -65,7 +67,7 @@
     _dataTable.delegate = self;
     _dataTable.separatorStyle = UITableViewCellSeparatorStyleNone;
    
-    _dataTable.rowHeight = _rowHeight;
+//    _dataTable.rowHeight = _rowHeight;
     [self insertSubview:_dataTable atIndex:0];
 }
 - (void)createRightMenuView
@@ -86,13 +88,13 @@
     _menuButton.titleLabel.font = [UIFont systemFontOfSize:15.0f];
     [_menuButton addTarget:self action:@selector(showRightMenu) forControlEvents:UIControlEventTouchUpInside];
     _menuButton.translatesAutoresizingMaskIntoConstraints = NO;
-    _menuButton.layer.cornerRadius = 35/2;
+    _menuButton.layer.cornerRadius = 30/2;
     _menuButton.layer.masksToBounds = YES;
     
     [self addSubview:_menuButton];
     
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-(%f)-[_menuButton(==%f)]|",kMainScreenWidth-size.width-30,size.width+30] options:0 metrics:nil views:NSDictionaryOfVariableBindings(_menuButton)]];
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-60-[_menuButton(==35)]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_menuButton)]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-60-[_menuButton(==30)]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_menuButton)]];
 }
 - (void)changeSubViewsFrameWithOparationRightMenu:(BOOL)oparation scale:(BOOL)scale
 {
@@ -189,7 +191,7 @@
         cell = [[self.dataCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
     
-    [cell setUpCellWithData:nil];
+    [cell setUpCellWithData:_listData[indexPath.row]];
     
     return cell;
 }
@@ -211,7 +213,14 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SHOW_TAB object:nil];
             tabHidde = NO;
         }
+    }else{
+        [self didSelectCellWithIndexPath:indexPath];
     }
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSNumber * number = _rowHeights[indexPath.row];
+    return number.floatValue;
 }
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {

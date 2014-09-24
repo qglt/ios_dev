@@ -9,6 +9,7 @@
 #ifndef UUSchool_AppStringConfig_h
 #define UUSchool_AppStringConfig_h
 
+#define LIFE_TAKEAWAY  @"TakeawayInfo"
 
 
 #endif

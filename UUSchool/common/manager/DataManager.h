@@ -10,9 +10,19 @@
 
 @class UserInfo;
 
+@protocol DataManagerDelegate <NSObject>
+
+- (void)requestFinish:(NSArray *)requestData;
+
+- (void)requestFailler:(NSString *)errorMsg;
+
+@end
+
 @interface DataManager : NSObject
 
 SINGLETON_DEFINE(DataManager);
+
+@property (nonatomic,weak)__weak id <DataManagerDelegate>delegate;
 
 #pragma mark - userInfo -
 - (UserInfo *)getUserInfoFromNetworkByID:(NSString *)userID;
@@ -30,10 +40,10 @@ SINGLETON_DEFINE(DataManager);
 - (void)checkLocalUser:(UserInfo *)info callBack:(void(^)(BOOL ok))callBack;
 
 #pragma mark - lifeController -
-- (NSArray *)getTakeawayDataForKey:(NSString *)keyString category:(NSString *)category pageCount:(int)pageCount;
-- (NSArray *)getWorkDataForKey:(NSString *)keyString pageCount:(int)pageCount;
-- (NSArray *)getTeachDataForKey:(NSString *)keyString pageCount:(int)pageCount;
-- (NSArray *)getShopDataForKey:(NSString *)keyString pageCount:(int)pageCount;
-- (NSArray *)getGroupenDataForKey:(NSString *)keyString pageCount:(int)pageCount;
+#warning 生活部分数据处理方法，还需要添加（删除，修改）等操作方法。
+
+- (void)getLifeContentDataWithLifeType:(NSString *)lifeType category:(NSString *)category subCategory:(NSString *)subCategory pageCount:(int)pageCount;
+- (void)uploadLifeDataToLifeType:(NSString *)keyString dataDict:(NSDictionary *)dict;
+
 
 @end

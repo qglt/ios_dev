@@ -10,14 +10,6 @@
 
 @interface BaseCell ()
 
-@property (nonatomic,strong)UIImageView * image;
-
-@property (nonatomic,strong)UILabel * titleText;
-
-@property (nonatomic,strong)UILabel * detailText;
-
-@property (nonatomic,strong)UIView * otherView;
-
 @end
 
 
@@ -39,35 +31,33 @@
 - (void)setBaseCondition
 {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.layer.borderWidth = 5;
-    self.layer.shadowOffset = CGSizeMake(3, 5);
-    self.layer.borderColor = BASE_CONTENT_COLOR.CGColor;
     [self clean];
 }
 - (void)clean
 {
     for (id obj in self.subviews) {
-        if ([obj isKindOfClass:[UILabel class]]||[obj isKindOfClass:[UIImageView class]]) {
+        if ([obj isKindOfClass:[UILabel class]]||[obj isKindOfClass:[UIImageView class]]||[obj isMemberOfClass:[UIView class]]) {
             [obj removeFromSuperview];
         }
     }
 }
 - (void)createImageView
 {
-    self.image = [[UIImageView alloc]init];
-    _image.backgroundColor = [UIColor redColor];
-    _image.translatesAutoresizingMaskIntoConstraints = NO;
+    self.image_H = [[UIImageView alloc]init];
+    _image_H.backgroundColor = [UIColor redColor];
+    _image_H.translatesAutoresizingMaskIntoConstraints = NO;
 }
 - (void)createTitleLabel
 {
     self.titleText = [[UILabel alloc]init];
-    _titleText.font = [UIFont systemFontOfSize:18.0f];
+    _titleText.font = [UIFont boldSystemFontOfSize:16.0f];
     _titleText.backgroundColor = [UIColor greenColor];
     _titleText.text = @"这是标题 !";
     _titleText.textAlignment = NSTextAlignmentLeft;
     _titleText.textColor = [UIColor blackColor];
     _titleText.translatesAutoresizingMaskIntoConstraints = NO;
-    
+    _titleText.numberOfLines = 0;
+    _titleText.lineBreakMode = NSLineBreakByWordWrapping;
 }
 - (void)createDetailLabel
 {
@@ -78,6 +68,8 @@
     _detailText.textColor = [UIColor blackColor];
     _detailText.translatesAutoresizingMaskIntoConstraints = NO;
     _detailText.text = @"这是内容介绍区域。";
+    _detailText.numberOfLines = 0;
+    _detailText.lineBreakMode = NSLineBreakByWordWrapping;
 }
 - (void)createOtherView
 {
@@ -86,14 +78,20 @@
     _otherView.backgroundColor = [UIColor brownColor];
     _otherView.translatesAutoresizingMaskIntoConstraints = NO;
 }
-
+-(void)setBorderColor:(UIColor *)borderColor
+{
+    _borderColor = borderColor;
+    self.layer.borderWidth = 5;
+    self.layer.shadowOffset = CGSizeMake(3, 5);
+    self.layer.borderColor = _borderColor.CGColor;
+}
 - (void)setCellType:(BaseCellType)type
 {
     switch (type) {
         
         case BaseCellTypeDefult:
         {
-            [self addSubview:_image];
+            [self addSubview:_image_H];
             [self addSubview:_titleText];
             [self addSubview:_detailText];
         }break;
@@ -106,7 +104,7 @@
         
         case BaseCellTypeImageAndTitle:
         {
-            [self addSubview:_image];
+            [self addSubview:_image_H];
             [self addSubview:_titleText];
         }break;
             
@@ -125,7 +123,7 @@
         
         case BaseCellTypeOtherImageAndTitle:
         {
-            [self addSubview:_image];
+            [self addSubview:_image_H];
             [self addSubview:_titleText];
             [self addSubview:_otherView];
         }break;
@@ -133,7 +131,7 @@
         case BaseCellTypeOtherDetailImageAndTitle:
         {
             [self addSubview:_otherView];
-            [self addSubview:_image];
+            [self addSubview:_image_H];
             [self addSubview:_titleText];
             [self addSubview:_detailText];
         }break;
@@ -148,83 +146,93 @@
     switch (type) {
         case BaseCellTypeDefult:
         {
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:_image attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:1 constant:-10]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_image_H attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:1 constant:-10]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_image_H attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeHeight multiplier:0 constant:174]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_image_H attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:5]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_image_H attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1 constant:5]];
             
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_image attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
+            //-----------------------titleText----------constrains--------------------
             
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:_detailText attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_image attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_image_H attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_image_H attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:_image_H attribute:NSLayoutAttributeHeight multiplier:0 constant:40]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_image_H attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
             
-            ///////////////////////////////////
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:_image attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:5]];
+            //-----------------------detailText----------constrains--------------------
             
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_image attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
-            
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:_detailText attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_image attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
-            
-            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[_image(==175)][_titleText(==25)][_detailText(==30)]-5-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_image,_titleText,_detailText)]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_detailText attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_image_H attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_detailText attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_image_H attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_detailText attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_titleText attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_detailText attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:-5]];
             
         }break;
         
         case BaseCellTypeDetailAndTitle:
         {
+            //-----------------------titleText----------constrains--------------------
+            
             [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:1 constant:-10]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:5]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeHeight multiplier:0 constant:40]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1 constant:5]];
+            
+            //-----------------------detailText----------constrains--------------------
             
             [self addConstraint:[NSLayoutConstraint constraintWithItem:_detailText attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_titleText attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
-            
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:5]];
-            
             [self addConstraint:[NSLayoutConstraint constraintWithItem:_detailText attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_titleText attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
-            
-            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[_titleText(==45)][_detailText(==145)]-5-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_titleText,_detailText)]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_detailText attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_titleText attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_detailText attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:-5]];
             
         }break;
             
         case BaseCellTypeImageAndTitle:
         {
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:_image attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:1 constant:-10]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_image_H attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:1 constant:-10]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_image_H attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeHeight multiplier:0 constant:174]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_image_H attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:5]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_image_H attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1 constant:5]];
             
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_image attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
+            //-----------------------titleText----------constrains--------------------
             
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:_image attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:5]];
-            
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_image attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
-            
-            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[_image(==175)][_titleText(==25)]-5-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_image,_titleText)]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_image_H attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_image_H attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:-5]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_image_H attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
             
         }break;
             
         case BaseCellTypeOtherAndTitle:
         {
             [self addConstraint:[NSLayoutConstraint constraintWithItem:_otherView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:1 constant:-10]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_otherView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeHeight multiplier:0 constant:40]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_otherView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:5]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_otherView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1 constant:5]];
+            
+            //-----------------------titleText----------constrains--------------------
             
             [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_otherView attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
-            
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:_otherView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:5]];
-            
             [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_otherView attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
-            
-            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[_otherView(==45)][_titleText]-5-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_otherView,_titleText)]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:-5]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_otherView attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
             
         }break;
             
         case BaseCellTypeOtherDetailAndTitle:
         {
             [self addConstraint:[NSLayoutConstraint constraintWithItem:_otherView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeHeight multiplier:1 constant:-10]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_otherView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:0 constant:45]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_otherView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1 constant:5]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_otherView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:5]];
             
             [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:1 constant:-55]];
-            
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:_detailText attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_titleText attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
-            
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:_otherView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1 constant:5]];
-            
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeHeight multiplier:0 constant:40]];
             [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_otherView attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
-            
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:50]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_otherView attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
             
             [self addConstraint:[NSLayoutConstraint constraintWithItem:_detailText attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_titleText attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
-            
-            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[_otherView(==45)][_titleText]-5-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_otherView,_titleText)]];
-            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[_titleText(==45)][_detailText(==145)]-5-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_titleText,_detailText)]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_detailText attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_titleText attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_detailText attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_titleText attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_detailText attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:-5]];
             
         }break;
             
@@ -238,24 +246,24 @@
             
             [self addConstraint:[NSLayoutConstraint constraintWithItem:_otherView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:5]];
             
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:_image attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:1 constant:-55]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_image_H attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeRight multiplier:1 constant:-5]];
             
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:_image attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeHeight multiplier:0 constant:149]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_image_H attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeHeight multiplier:0 constant:149]];
             
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:_image attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_otherView attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_image_H attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_otherView attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
             
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:_image attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_otherView attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_image_H attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_otherView attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
             
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_image attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_image_H attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
             
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_image attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_image_H attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
             
             [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_otherView attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
             
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_image attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_image_H attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
             
             [self addConstraint:[NSLayoutConstraint constraintWithItem:_detailText attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:1 constant:-10]];
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:_detailText attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_detailText attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:-5]];
             [self addConstraint:[NSLayoutConstraint constraintWithItem:_detailText attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_otherView attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
             [self addConstraint:[NSLayoutConstraint constraintWithItem:_detailText attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_otherView attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
         }break;
@@ -263,28 +271,20 @@
         case BaseCellTypeOtherImageAndTitle:
         {
             [self addConstraint:[NSLayoutConstraint constraintWithItem:_otherView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeHeight multiplier:1 constant:-10]];
-            
             [self addConstraint:[NSLayoutConstraint constraintWithItem:_otherView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:0 constant:45]];
-            
             [self addConstraint:[NSLayoutConstraint constraintWithItem:_otherView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1 constant:5]];
-            
             [self addConstraint:[NSLayoutConstraint constraintWithItem:_otherView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:5]];
+        
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_image_H attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:1 constant:-55]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_image_H attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeHeight multiplier:0 constant:149]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_image_H attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_otherView attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_image_H attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_otherView attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
             
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:_image attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:1 constant:-55]];
             
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:_image attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeHeight multiplier:0 constant:149]];
-            
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:_image attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_otherView attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
-            
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:_image attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_otherView attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
-            
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_image attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
-            
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_image attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
-            
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_image_H attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_image_H attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
             [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_otherView attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
-            
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_image attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleText attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_image_H attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
             
         }break;
             

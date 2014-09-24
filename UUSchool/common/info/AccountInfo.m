@@ -7,7 +7,7 @@
 //
 
 #import "AccountInfo.h"
-#import <JSONKit.h>
+#import "JSONKit.h"
 #import <CommonCrypto/CommonCrypto.h>
 @implementation AccountInfo
 

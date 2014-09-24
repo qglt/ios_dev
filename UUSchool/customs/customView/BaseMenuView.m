@@ -34,7 +34,7 @@
 }
 - (void)setBaseCondition
 {
-    self.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
+    self.backgroundColor = [UIColor colorWithWhite:1.f alpha:.9f];
 }
 
 - (void)createTableView
@@ -149,13 +149,17 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UILabel * label = [[UILabel alloc]init];
-    label.backgroundColor = BASE_CONTENT_COLOR;
+    label.backgroundColor = [UIColor clearColor];
     label.textAlignment = NSTextAlignmentCenter;
     label.text = [self tableView:tableView titleForHeaderInSection:section];
     return label;
 }
 
 #pragma mark - UITableViewDelegate methods
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"menu cell clicked !" message:[NSString stringWithFormat:@"NO . %ld%ld",(long)indexPath.section,(long)indexPath.row] delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:@"yes",@"i know !", nil];
+    [alert show];
+}
 
 @end

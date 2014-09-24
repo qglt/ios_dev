@@ -7,7 +7,7 @@
 //
 
 #import "UserInfo.h"
-#import <JSONKit.h>
+#import "JSONKit.h"
 
 @implementation UserInfo
 

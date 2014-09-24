@@ -8,6 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum{
+    UserTypeDefault = 0,
+    UserTypeStudent,
+    UserTypeTakeaway,
+    UserTypeBusinees,
+    UserTypeParrent,
+    UserTypeCompany
+}UserType;
+
 @interface UserInfo : NSObject
 
 @property (nonatomic,strong)NSString * name;

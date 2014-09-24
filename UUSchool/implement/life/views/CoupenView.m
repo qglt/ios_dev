@@ -12,7 +12,7 @@
 
 - (id)initWithFrame:(CGRect)frame
 {
-    self = [super initWithFrame:frame andRowHeight:210];
+    self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
         [self setBase];
@@ -22,7 +22,14 @@
 - (void)setBase
 {
     self.dataCell = NSClassFromString(@"CoupenCell");
+    self.rowHeights = @[[NSNumber numberWithFloat:215.f],[NSNumber numberWithFloat:215.f],
+                        [NSNumber numberWithFloat:215.f],[NSNumber numberWithFloat:215.f],
+                        [NSNumber numberWithFloat:215.f],[NSNumber numberWithFloat:215.f]
+                        ];
     self.listData = [NSMutableArray arrayWithArray:@[@"1",@"2",@"3",@"4",@"5",@"6"]];
 }
-
+-(void)didSelectCellWithIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"Select GroupenCell with indexPath(%ld,%ld)",(long)indexPath.section,(long)indexPath.row);
+}
 @end

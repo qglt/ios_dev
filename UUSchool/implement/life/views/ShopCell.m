@@ -7,6 +7,13 @@
 //
 
 #import "ShopCell.h"
+#import "ShopInfo.h"
+
+@interface ShopCell ()
+{
+    int cellTypeNumber;
+}
+@end
 
 @implementation ShopCell
 
@@ -16,18 +23,28 @@
     if (self) {
         // Initialization code
         self.backgroundColor = [UIColor purpleColor];
-        [self setCellType:BaseCellTypeImageAndTitle];
+        self.borderColor = BASE_CONTENT_COLOR;
     }
     return self;
 }
 
--(void)setUpCellWithData:(NSData *)data
+-(void)setUpCellWithData:(id)data
 {
-    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 200, 40)];
-    label.center = CGPointMake(self.bounds.size.width/2.0f, self.bounds.size.height/2.0f);
-    label.text = @"这是 购物cell !";
+    ShopInfo * info = data;
     
-    [self addSubview:label];
+    if (![info.title isEqualToString:@""] && info.title != nil) {
+        cellTypeNumber += 14;
+        self.titleText.text = [NSString stringWithFormat:@"%@        %@",info.title,info.store];
+    }
+    if (![info.imageUrl isEqualToString:@""] && info.imageUrl !=nil) {
+        cellTypeNumber += 15;
+        [self.image_H sd_setImageWithURL:[NSURL URLWithString:info.imageUrl]];
+    }
+    if (![info.detail isEqualToString:@""] && info.detail !=nil) {
+        cellTypeNumber += 6;
+        self.detailText.text = info.detail;
+    }
+    [self setCellType:cellTypeNumber];
 }
 
 @end

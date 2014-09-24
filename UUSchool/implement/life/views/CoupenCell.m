@@ -16,6 +16,7 @@
     if (self) {
         // Initialization code
         self.backgroundColor = [UIColor brownColor];
+        self.borderColor = BASE_CONTENT_COLOR;
         [self setCellType:BaseCellTypeImageAndTitle];
     }
     return self;
