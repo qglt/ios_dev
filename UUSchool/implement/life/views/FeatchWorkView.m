@@ -32,39 +32,6 @@
 {
     self.dataCell = NSClassFromString(@"WorkCell");
     [self showMenuButtonWithTitle:@"我的兼职"];
-    [self refreshTableDataWith:[self getListData]];
-}
-- (NSArray *)getListData
-{
-    WorkInfo * info1 = [[WorkInfo alloc]initWithDictionary:@{
-                                                                     @"price": @"12.5",
-                                                                     @"institution":@"产品推广",
-                                                                     @"category":@"服务类",
-                                                                     @"location":@"海亮广场",
-                                                                     @"logitude":@"15",
-                                                                     @"latitude":@"10",
-                                                                     @"when":@"每周六下午",
-                                                                     @"imageUrl":@"http://192.168.2.228/source/1.jpg",
-                                                                     @"title":@"周末兼职",
-                                                                     @"detail":@"这是说明: jianzhi兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职",
-                                                                     @"userID":@"12345"
-                                                                     }];
-    WorkInfo * info2 = [[WorkInfo alloc]initWithDictionary:@{
-                                                             @"price": @"12.5",
-                                                             @"institution":@"亿儒科技",
-                                                             @"category":@"产品推广",
-                                                             @"location":@"海亮广场",
-                                                             @"logitude":@"15",
-                                                             @"latitude":@"10",
-                                                             @"when":@"每周六下午",
-                                                             @"imageUrl":@"",
-                                                             @"title":@"周末兼职",
-                                                             @"detail":@"这是说明: jianzhi兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职jianzhi兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职兼职",
-                                                             @"userID":@"12345"
-                                                             }];
-    [self uploadDict:[info1 dictionary]];
-    
-    return @[info1,info2,info2,info2,info1];
 }
 - (void)getRowHeights:(NSArray *)dataArray
 {
@@ -86,35 +53,20 @@
         [self.rowHeights addObject:[NSNumber numberWithFloat:height]];
     }
 }
-- (void)uploadDict:(NSDictionary *)dict
+-(void)refreshTableDataWith:(NSMutableArray *)dataArray
 {
-    NSArray * array = [NSArray arrayWithArray:[dict allKeys]];
-    self.request = [[ASIFormDataRequest alloc]initWithURL:[NSURL URLWithString:@"http://192.168.2.228/main.php"]];
-    
-    [_request setRequestMethod:@"POST"];
-    [_request setTimeOutSeconds:60];
-    [_request addRequestHeader:@"Content-Type" value:@"application/json"];
-    [_request setPostValue:@"set" forKey:@"method"];
-    [_request setPostValue:@"TakeawayInfo" forKey:@"lifeType"];
-    
-    for (NSString * key in array) {
-        [_request setPostValue:dict[key] forKey:key];
-    }
-    __unsafe_unretained FeatchWorkView * main = self;
-    
-    [_request setCompletionBlock:^{
-        NSDictionary *dict = [_request.responseString objectFromJSONString];
-        NSLog(@"--------responsString = %@",_request.responseString);
-    }];
-    [_request setFailedBlock:^{
-        NSLog(@"－－－－－－－－－－－－－－－－－－－－－－－－－连接错误 。");
-    }];
-    [_request startAsynchronous];
+    NSMutableArray * array = [self configDataWithArray:dataArray];
+    [self getRowHeights:array];
+    self.listData = array;
 }
--(void)refreshTableDataWith:(NSArray *)dataArray
+- (NSMutableArray *)configDataWithArray:(NSArray *)array
 {
-    [self getRowHeights:dataArray];
-    self.listData = [NSMutableArray arrayWithArray:dataArray];
+    NSMutableArray * data = [NSMutableArray array];
+    for (NSDictionary * dict in array) {
+        WorkInfo * info = [[WorkInfo alloc]initWithDictionary:dict];
+        [data addObject:info];
+    }
+    return data;
 }
 -(void)didSelectCellWithIndexPath:(NSIndexPath *)indexPath
 {

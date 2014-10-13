@@ -56,7 +56,9 @@ SINGLETON_IMPLEMENT(DataManager);
 }
 - (void)uploadLifeDataToLifeType:(NSString *)keyString dataDict:(NSDictionary *)dict
 {
-
+    NSMutableDictionary * paramDict = [NSMutableDictionary dictionaryWithDictionary:dict];
+    [paramDict setObject:keyString forKey:@"lifeType"];
+    [[HTTPRequestManager shareInstance] requestForServer:1 method:@"set" paramDict:paramDict];
 }
 
 -(ResultInfo *)parseCommandResusltInfo:(NSDictionary *)data

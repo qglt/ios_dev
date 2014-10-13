@@ -39,8 +39,6 @@ SINGLETON_IMPLEMENT(HTTPRequestManager)
     for (NSString * key in array) {
         [_request setPostValue:paramDict[key] forKey:key];
     }
-   
-    
     [_request startAsynchronous];
 }
 
@@ -90,6 +88,14 @@ SINGLETON_IMPLEMENT(HTTPRequestManager)
     
     NSDictionary *dict = [_request.responseString objectFromJSONString];
     NSDictionary *dict1 = dict[@"returnMsg"];
+    NSArray * array = dict1[@"data"];
+    if(array.count <1){
+        LOG_GENERAL_ERROR(@"暂无数据");
+        
+        NSDictionary * dict = @{@"errorMsg": @"暂无数据!"};
+        listener(dict);
+        return;
+    }
     
     listener(dict1);
 }

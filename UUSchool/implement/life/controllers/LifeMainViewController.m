@@ -42,14 +42,12 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-//    if (!first) {
-        self.currentContent = self.view.subviews[0];
-        Class c = [self.currentContent class];
-        NSString * str = NSStringFromClass(c);
-        viewType = [str substringToIndex:str.length-4];
-        [self getListDataWithView:viewType];
-//    }
-//    first = NO;
+    self.currentContent = self.view.subviews[0];
+    Class c = [self.currentContent class];
+    NSString * str = NSStringFromClass(c);
+    viewType = [str substringToIndex:str.length-4];
+    [self getListDataWithView:viewType];
+    
 }
 - (void)setBaseCondition
 {
@@ -64,7 +62,10 @@
 {
     [[DataManager shareInstance] getLifeContentDataWithLifeType:type category:@"" subCategory:@"" pageCount:1];
 }
-
+- (void)uploadData:(NSDictionary *)dataDict withType:(NSString *)type
+{
+    [[DataManager shareInstance] uploadLifeDataToLifeType:type dataDict:dataDict];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -83,5 +84,4 @@
                                           otherButtonTitles: nil];
     [alert show];
 }
-
 @end

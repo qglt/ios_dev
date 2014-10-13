@@ -39,11 +39,7 @@
 
 - (void)createTableView
 {
-    CGRect frame = self.frame;
-    frame.origin.x = 0;
-    frame.origin.y =40;
-    frame.size.height -= 20;
-    self.dataTable = [[UITableView alloc]initWithFrame:frame];
+    self.dataTable = [[UITableView alloc]initWithFrame:self.bounds];
     
     _dataTable.dataSource = self;
     _dataTable.delegate = self;
@@ -141,9 +137,9 @@
     BaseCell * cell = (BaseCell *)[tableView cellForRowAtIndexPath:indexPath];
     if (!cell) {
         cell = [[self.dataCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell.layer.borderWidth = .5f;
     }
     [cell setUpCellWithData:nil];
-    
     return cell;
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -154,12 +150,10 @@
     label.text = [self tableView:tableView titleForHeaderInSection:section];
     return label;
 }
-
 #pragma mark - UITableViewDelegate methods
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"menu cell clicked !" message:[NSString stringWithFormat:@"NO . %ld%ld",(long)indexPath.section,(long)indexPath.row] delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:@"yes",@"i know !", nil];
     [alert show];
 }
-
 @end

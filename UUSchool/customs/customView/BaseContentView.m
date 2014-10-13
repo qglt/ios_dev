@@ -16,7 +16,7 @@
 {
     CGFloat _rowHeight;
     
-    BOOL navHidde;
+//    BOOL navHidde;
     BOOL tabHidde;
     BOOL menuIsShow;
     BOOL rightMenuisShow;
@@ -45,6 +45,7 @@
 
 - (void)setBaseCondition
 {
+    getTopDistance();
     self.backgroundColor = BASE_CONTENT_COLOR;
     menuIsShow = NO;
     rightMenuisShow = NO;
@@ -58,21 +59,18 @@
     _listData = listData;
     [_dataTable reloadData];
 }
-
 - (void)createDataTable
 {
-    self.dataTable = [[UITableView alloc]initWithFrame:self.bounds style:UITableViewStylePlain];
+    self.dataTable = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight-TopBarHeight) style:UITableViewStylePlain];
     _dataTable.backgroundColor = [UIColor clearColor];
     _dataTable.dataSource = self;
     _dataTable.delegate = self;
     _dataTable.separatorStyle = UITableViewCellSeparatorStyleNone;
-   
-//    _dataTable.rowHeight = _rowHeight;
     [self insertSubview:_dataTable atIndex:0];
 }
 - (void)createRightMenuView
 {
-    self.rightMenuView = [[BaseMenuView alloc]initWithFrame:CGRectMake(kMainScreenWidth, 0, MENU_WIDTH, [[UIScreen mainScreen] bounds].size.height)];
+    self.rightMenuView = [[BaseMenuView alloc]initWithFrame:CGRectMake(kMainScreenWidth, 0, MENU_WIDTH, kMainScreenHeight-TopBarHeight)];
     _rightMenuView.delegate = self;
     [self addSubview:_rightMenuView];
     
@@ -115,15 +113,15 @@
     }
     if (scale) {
         
-        CGRect frame = _dataTable.frame;
-        frame.size.height += 20;
-        _dataTable.frame = frame;
+//        CGRect frame = _dataTable.frame;
+//        frame.size.height += 20;
+//        _dataTable.frame = frame;
         
     }else{
         
-        CGRect frame = _dataTable.frame;
-        frame.size.height -= 20;
-        _dataTable.frame = frame;
+//        CGRect frame = _dataTable.frame;
+//        frame.size.height -= 20;
+//        _dataTable.frame = frame;
     }
 }
 - (void)showRightMenu
@@ -144,20 +142,20 @@
             [self changeSubViewsFrameWithOparationRightMenu:YES scale:YES];
         }];
         
-        if (!navHidde) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_HIDDE_NAVIGATION object:nil];
-            navHidde = YES;
-        }
+//        if (!navHidde) {
+//            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_HIDDE_NAVIGATION object:nil];
+//            navHidde = YES;
+//        }
         if (!tabHidde) {
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_HIDDE_TAB object:nil];
             tabHidde = YES;
         }
     }else{
         
-        if (navHidde) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SHOW_NAVIGATION object:nil];
-            navHidde = NO;
-        }
+//        if (navHidde) {
+//            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SHOW_NAVIGATION object:nil];
+//            navHidde = NO;
+//        }
         if (tabHidde) {
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SHOW_TAB object:nil];
             tabHidde = NO;
@@ -205,10 +203,10 @@
             }];
         }];
         
-        if (navHidde) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SHOW_NAVIGATION object:nil];
-            navHidde = NO;
-        }
+//        if (navHidde) {
+//            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SHOW_NAVIGATION object:nil];
+//            navHidde = NO;
+//        }
         if (tabHidde) {
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SHOW_TAB object:nil];
             tabHidde = NO;
@@ -226,26 +224,26 @@
 {
     if (!rightMenuisShow) {
         if (scrollView.contentOffset.y >1 && scrollView.contentOffset.y >scrollBeganPoint) {
-            if (!(navHidde || tabHidde)) {
+            if (! tabHidde) {
                 [self changeSubViewsFrameWithOparationRightMenu:NO scale:YES];
             }
-            if (!navHidde) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_HIDDE_NAVIGATION object:nil];
-                navHidde = YES;
-            }
+//            if (!navHidde) {
+//                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_HIDDE_NAVIGATION object:nil];
+//                navHidde = YES;
+//            }
             if (!tabHidde) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_HIDDE_TAB object:nil];
                 tabHidde = YES;
             }
         }
         if (scrollView.contentOffset.y < scrollBeganPoint - 80 ||scrollView.contentOffset.y < 1) {
-            if (navHidde || tabHidde) {
+            if (tabHidde) {
                 [self changeSubViewsFrameWithOparationRightMenu:NO scale:NO];
             }
-            if (navHidde) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SHOW_NAVIGATION object:nil];
-                navHidde = NO;
-            }
+//            if (navHidde) {
+//                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SHOW_NAVIGATION object:nil];
+//                navHidde = NO;
+//            }
             if (tabHidde) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SHOW_TAB object:nil];
                 tabHidde = NO;
