@@ -39,6 +39,12 @@ SINGLETON_IMPLEMENT(HTTPRequestManager)
     for (NSString * key in array) {
         [_request setPostValue:paramDict[key] forKey:key];
     }
+#warning - 清除缓存时一定要处理request的缓存数据 －－－[[[AppCache shareInstance] cache] clearCachedResponsesForStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
+    [_request setDownloadCache:[[AppCache shareInstance] cache]];
+    [_request setCacheStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
+    
+    [_request setSecondsToCache:60*60]; // 缓存30天
+    
     [_request startAsynchronous];
 }
 
@@ -59,6 +65,7 @@ SINGLETON_IMPLEMENT(HTTPRequestManager)
 //非200的请求错误，200是成功,//500 服务器的内部错误  返回html内容  //---------501 未实现-------502 网关出错--------405 不允许此方法-------400 请求出错 //404 找不到
 - (void)requestDidFinish:(ASIFormDataRequest * )request
 {
+    NSLog(@"-----------------%d",[_request didUseCachedResponse]);
     if(request.responseStatusCode!=200){
         
         if(request.responseStatusCode==500){

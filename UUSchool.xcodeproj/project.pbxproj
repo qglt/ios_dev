@@ -47,9 +47,9 @@
 		0425FDA11990586200ABFFD6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0425FD891990586200ABFFD6 /* UIKit.framework */; };
 		0425FDA91990586200ABFFD6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0425FDA71990586200ABFFD6 /* InfoPlist.strings */; };
 		0425FDAB1990586200ABFFD6 /* UUSchoolTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0425FDAA1990586200ABFFD6 /* UUSchoolTests.m */; };
+		044561BE19ECB29D002DACF3 /* AppCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 044561BD19ECB29D002DACF3 /* AppCache.m */; };
 		047A84A81991CA7F002A1486 /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 047A84521991CA7F002A1486 /* NSString+URLEncoding.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		047A84A91991CA7F002A1486 /* UIBarButtonItem+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 047A84541991CA7F002A1486 /* UIBarButtonItem+Addition.m */; };
-		047A84AA1991CA7F002A1486 /* UIButton+menuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 047A84561991CA7F002A1486 /* UIButton+menuItem.m */; };
 		047A84AB1991CA7F002A1486 /* AccountInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 047A845B1991CA7F002A1486 /* AccountInfo.m */; };
 		047A84AC1991CA7F002A1486 /* ResultInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 047A845D1991CA7F002A1486 /* ResultInfo.m */; };
 		047A84AD1991CA7F002A1486 /* LoggerClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 047A84601991CA7F002A1486 /* LoggerClient.m */; };
@@ -177,12 +177,12 @@
 		0425FDA61990586200ABFFD6 /* UUSchoolTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UUSchoolTests-Info.plist"; sourceTree = "<group>"; };
 		0425FDA81990586200ABFFD6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0425FDAA1990586200ABFFD6 /* UUSchoolTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UUSchoolTests.m; sourceTree = "<group>"; };
+		044561BC19ECB29D002DACF3 /* AppCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppCache.h; sourceTree = "<group>"; };
+		044561BD19ECB29D002DACF3 /* AppCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppCache.m; sourceTree = "<group>"; };
 		047A84511991CA7F002A1486 /* NSString+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLEncoding.h"; sourceTree = "<group>"; };
 		047A84521991CA7F002A1486 /* NSString+URLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+URLEncoding.m"; sourceTree = "<group>"; };
 		047A84531991CA7F002A1486 /* UIBarButtonItem+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Addition.h"; sourceTree = "<group>"; };
 		047A84541991CA7F002A1486 /* UIBarButtonItem+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+Addition.m"; sourceTree = "<group>"; };
-		047A84551991CA7F002A1486 /* UIButton+menuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+menuItem.h"; sourceTree = "<group>"; };
-		047A84561991CA7F002A1486 /* UIButton+menuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+menuItem.m"; sourceTree = "<group>"; };
 		047A84581991CA7F002A1486 /* AppConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppConfig.h; sourceTree = "<group>"; };
 		047A845A1991CA7F002A1486 /* AccountInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountInfo.h; sourceTree = "<group>"; };
 		047A845B1991CA7F002A1486 /* AccountInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountInfo.m; sourceTree = "<group>"; };
@@ -476,8 +476,6 @@
 				047A84521991CA7F002A1486 /* NSString+URLEncoding.m */,
 				047A84531991CA7F002A1486 /* UIBarButtonItem+Addition.h */,
 				047A84541991CA7F002A1486 /* UIBarButtonItem+Addition.m */,
-				047A84551991CA7F002A1486 /* UIButton+menuItem.h */,
-				047A84561991CA7F002A1486 /* UIButton+menuItem.m */,
 				047F1E221994A12A0007EE70 /* UIViewController+ReplaceView.h */,
 				047F1E231994A12A0007EE70 /* UIViewController+ReplaceView.m */,
 			);
@@ -755,6 +753,8 @@
 				04AF1FAF199A0A6C00678A7D /* DataManager.m */,
 				04FD704019B44E8E0081AC22 /* HTTPRequestManager.h */,
 				04FD704119B44E8E0081AC22 /* HTTPRequestManager.m */,
+				044561BC19ECB29D002DACF3 /* AppCache.h */,
+				044561BD19ECB29D002DACF3 /* AppCache.m */,
 			);
 			path = manager;
 			sourceTree = "<group>";
@@ -901,6 +901,7 @@
 				047A84BA1991CA7F002A1486 /* NVCMenuPanel.m in Sources */,
 				047A84BB1991CA7F002A1486 /* LifeMainViewController.m in Sources */,
 				0419AE2819D16A7A00F57B58 /* UIImageView+HighlightedWebCache.m in Sources */,
+				044561BE19ECB29D002DACF3 /* AppCache.m in Sources */,
 				047F1E301994AAB00007EE70 /* ShopView.m in Sources */,
 				0419AE2A19D16A7A00F57B58 /* UIView+WebCacheOperation.m in Sources */,
 				0419AE2119D16A7A00F57B58 /* SDWebImageDownloaderOperation.m in Sources */,
@@ -941,7 +942,6 @@
 				047A84A81991CA7F002A1486 /* NSString+URLEncoding.m in Sources */,
 				0419AE2419D16A7A00F57B58 /* UIButton+WebCache.m in Sources */,
 				0412A7971998A3FF00A665AD /* RightMenuCell.m in Sources */,
-				047A84AA1991CA7F002A1486 /* UIButton+menuItem.m in Sources */,
 				04AF1FAC199A09F600678A7D /* FMDBManager+UserInfo.m in Sources */,
 				047A84BE1991CA7F002A1486 /* StudyMainViewController.m in Sources */,
 				047A84B01991CA7F002A1486 /* CustemTabBar.m in Sources */,
