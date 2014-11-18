@@ -76,6 +76,7 @@
         
         currentNvcMenu = [NSString stringWithFormat:@"%lu",item.tag - 20000];
         [main.menuTag setObject:currentNvcMenu forKey:_currentTab];
+        
     };
 }
 -(void)createTabBar
